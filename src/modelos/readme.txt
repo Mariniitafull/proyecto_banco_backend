@@ -1,0 +1,1 @@
+en la carpeta modelos solo guardamos interfaces, cada archivo es una interfaz
