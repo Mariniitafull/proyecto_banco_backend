@@ -26,11 +26,29 @@ export async function mostrarMenuGestores(w: Wrapper) {
 
       console.clear();
 
-      // Opción 1 --> Insertar gestor 
-      if(opcion === '1') {
-        await bancoGestores.insertarGestor();        
-        await w.rlp.questionAsync('');
-      }
+     // Opción 1 --> Insertar gestor 
+     if(opcion === '1') {
+      await bancoGestores.insertarGestor();        
+      await w.rlp.questionAsync('');
+    }
 
-    } while(opcion !== '7')
+    // Opción 3 --> Mostrar gestores 
+    else if(opcion === '3') {
+      await bancoGestores.mostrarGestores();
+      await w.rlp.questionAsync('');
+    }
+
+    // Opción 6 --> Eliminar gestor por identificador
+    else if(opcion === '6') {
+      await bancoGestores.eliminarGestorPorId(w);
+      await w.rlp.questionAsync('');
+    }
+
+    // Opción 7 --> Eliminar todos los gestores
+    else if(opcion === '7') {
+      await bancoGestores.eliminarGestores(w);
+      await w.rlp.questionAsync('');
+    }
+
+  } while(opcion !== '8');
 }
