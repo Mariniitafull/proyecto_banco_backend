@@ -3,19 +3,11 @@ import readline from 'readline-promise';
 import { Configuracion } from '../modelos/configuracion';
 import { BancoArchivos } from '../almacenamiento/banco-archivos';
 import { mostrarMenuGestores } from './menu-gestores';
+import { Wrapper } from '../modelos/wrapper';
 
 // export porque la función se utiliza fuera de este archivo
 // async porque dentro se utiliza await
-export async function mostrarMenuPrincipal(
-  conf: Configuracion, 
-  bancoArchivos: BancoArchivos) {
-
-  // configuración de readline-promise
-  const rlp = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    terminal: false,
-  });
+export async function mostrarMenuPrincipal(w: Wrapper) {
 
   let opcion: string;
 
@@ -32,14 +24,15 @@ export async function mostrarMenuPrincipal(
     console.log('6. Login');
     console.log('0. Salir');
     
-    opcion = await rlp.questionAsync('¿Qué opción deseas?\n');
+    opcion = await w.rlp.questionAsync('¿Qué opción deseas?\n');
+    console.log(opcion);
     
     if(opcion === '1') {
-      await mostrarMenuGestores(conf, bancoArchivos, rlp);
+      await mostrarMenuGestores(w);
     }
 
   } while(opcion !== '0');
 
   // esta es la última línea del programa
-  rlp.close();
+  w.rlp.close();
 }

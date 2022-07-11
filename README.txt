@@ -56,6 +56,9 @@ TODAS LAS LIBRERÍAS QUE SE DESCARGAN NPM SON LIBRERÍAS DE JAVASCRIPT:
 
 10. El siguiente id tendrá que obterse iterando todas los gestores en el contructor y obteniedo cual es el mayor id
 
+11. Encapsular todos los objetos de inicialización en un solo objeto envolvente (wrapper), de tal forma que a la función mostrarMenuPrincipal únicamente vamos a pasarle el objeto envolvente. El objeto debe debe tiparse (modelos/wrapper.ts) e incluir 3 objetos: rlp, conf, bancoArchivos
+
+12. Crear el archivo validaciones/validacion-gestores.ts con tres funciones validarUsuario, validarPassword y validarCorreo. Las tres funciones tienen que ser asíncronas, ser tienen que exportar, reciben como parámetro un string y el objeto w, y devuelve otro string. El string que devuelve es el error de validación si se produce y si no, se devuelve undefined o null
 
 
 La contraseña debe cifrarse mediante el algoritmo de hash bcrypt
