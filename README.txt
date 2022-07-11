@@ -60,5 +60,17 @@ TODAS LAS LIBRERÍAS QUE SE DESCARGAN NPM SON LIBRERÍAS DE JAVASCRIPT:
 
 12. Crear el archivo validaciones/validacion-gestores.ts con tres funciones validarUsuario, validarPassword y validarCorreo. Las tres funciones tienen que ser asíncronas, ser tienen que exportar, reciben como parámetro un string y el objeto w, y devuelve otro string. El string que devuelve es el error de validación si se produce y si no, se devuelve undefined o null
 
+13. Guardar el password no en texto plano, sino mediante un algoritmos de hash: bcrypt. Instalar la librería bcrypt
+
+npm install bcrypt
+
+14. Implementar la opción de mostrarGestores. Añadir la opción 3 de menú Gestores
+
+15. En el menú de gestores, cambiar la opción de Atrás (7) por Atrás (8) y añador la opción 7. Eliminar todos los gestores
+
+16. Implementar la opción de eliminarGestorPorId y eliminarGestores
+
+17. Cuando no haya ningún gestor, mostrar por pantalla "No hay gestores"
+
 
 La contraseña debe cifrarse mediante el algoritmo de hash bcrypt
