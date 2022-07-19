@@ -72,5 +72,154 @@ npm install bcrypt
 
 17. Cuando no haya ningún gestor, mostrar por pantalla "No hay gestores"
 
+18. La contraseña debe cifrarse mediante el algoritmo de hash bcrypt
 
-La contraseña debe cifrarse mediante el algoritmo de hash bcrypt
+19. Incorporar algunas propiedades adicionales al archivo conf.json:
+   archivosHabilitado (boolean): indica si se habilita el almacenamiento en archivos
+   databaseHabilitado (boolean): indica si se habilita el almacenamiento en base de datos
+   databaseHost (string)
+   databasePuerto (number)
+   databaseNombre (string)
+
+20. Tipar con los nuevas propiedades la interfaz Configuracion en el archivo modelos/configuracion.ts
+
+21. Crear el archivo validaciones/validarcion-configuracion.ts. Creamos la función validarConfiguracion, que recibe como parámetro el objeto de configuración y devuelve un string. Si el string es null, entonces la validación se ha pasado y si no es null, entonces la validación no es correcta y mensaje del error viene dado por el valor del string devuelto.
+
+22. Probar la función validarConfiguracion en el archivo main.ts, después de leer el archivo de configuración. Si se produce un error, se muestra un mensaje de error y se sale del programa (no se muestra el menú)
+
+/*
+ RECORDATORIO: ejecutar nodemon de la siguiente forma:
+
+nodemon dist/main.js -i *.json
+
+*/
+
+23. Instalar la librería mongodb
+
+npm install mongodb
+
+24. Crear el archivo almacenamiento/banco-database.ts. Crear una clase dentro del archivo con nombre BancoDatabase. En el constructor recibe el objeto de configuración como parámetro y se almacena como atributo de la clase. Implementar también un método asíncrono para conectar a la base de datos y asociarlo con la base del datos banco. Guardar el objeto asociado a la colección gestores como un atributo de la clase
+
+25. Crear un objeto de la clase BancoDatabase en el archivo main.ts, invocar al método conectar. Asociar el objeto bancoDatabase al objeto wrapper (tipar correctamente la intefaz Wrapper)
+
+26. Implementar el método obtenerGestores en la clase BancoDatabase (archivo almacenamiento/banco-database.ts). El método no recibe parámetro y retorna una promesa que resuelve con un array de gestores.
+
+27. Probar el método obtenerGestores de la clase BancoDatabase, invocándolo en el menú de gestores
+
+28. Implementar el método agregarGestor en la clase BancoDatabase (archivo almacenamiento/banco-database.ts). El método recibe un parámetro un objeto de tipo gestor y retorna una promesa que resuelve con void
+
+29. Implementar los métodos obtenerGestorPorCorreo y obtenerGestorPorUsuario en el archivo almacenamiento/banco-database.ts
+
+
+28. Probar el método agregarGestor de la clase BancoDatabase, invocándolo en el menú de gestores
+
+29. Cambiar el archivo validacion-gestores.ts reemplazando todas las apariciones bancoArchivos y sustituyendo por bancoDatabase
+
+30. Crear el atributo idSiguiente en la clase BancoDatabase y obtener el último id en el método conectar.  En el método insertarGestor, agregar el id asignándole el valor del atributo idSiguiente (que debe incrementarse un valor posteriormente).
+
+31. Implementar los métodos eliminarGestorPorId y eliminarGestores en la clase BancoDatabase
+
+32. Probar los métodos anteriores de la clase BancoDatabase, invocándolo en el menú de gestores
+
+33. Instalar las librerías random-email y unique-names-generator
+
+npm install random-email unique-names-generator
+
+34. Implementar la opción 2 del menú de gestores. Hay que solicitar al usuario el número de gestores a introducir y posteriormente utilizar las librerías anteriores para generar nombres de usuarios y correos aleatorios. Implementar el método insertarGestoresMasivo en la clase BancoGestores
+
+35. En la opción de mostrarGestores, añadir un console.log indicando el número de gestores totales en la colección de gestores
+
+36. Crear el archivo menu-clientes.ts y escribir el menú de clientes:
+
+MENÚ CLIENTES
+--------
+1. Insertar cliente
+2. Mostrar clientes
+3. Mostrar cliente por identificador
+4. Modificar cliente
+5. Eliminar cliente por identificador
+6. Eliminar todos los clientes
+7. Atrás <-- vuelve al menú principal
+
+37. Crear el archivo banco-clientes.ts con la clase BancoClientes. El constructor recibe el objeto w (Wrapper) y su valor se asigna a un atributo de la clase que debe crearse
+
+38. Implementar el método insertarCliente en la clase BancoClientes. Habrá que pedir al usuario, toda la información cliente: usuario, password, correo, saldo, identificador del gestor. Validaciones: todas las del gestor (opcionales), el saldo no puede negativo, el gestor que le asigna tiene que existir. Las validaciones estarán validaciones-clientes. Habrá que tipar el objeto cliente con la interfaz Cliente (modelos/cliente.ts)
+
+----
+39. Instalar la librería nodemailer, que es la que permite enviar correos electrónicos
+
+npm install nodemailer
+npm install @types/nodemailer
+
+40. Añadir las siguientes propiedades
+ smtpHost: smtp.gmail.com
+ smtpPuerto: 465
+ smtpUsuario: "pepitonode@gmail.com"
+ smtpPassword: "rhncigxanbrurjnf"
+
+41. Agregar conf.json al .gitignore
+
+42. Tipar la interfaz Configuracion (modelos/configuracion.ts) para agregar las cuatro nuevas propiedades
+
+43. Agregar un submenú para la opción "Otros":
+
+MENÚ OTROS
+-------------
+1. Enviar correo
+2. Atrás
+
+Crear el archivo menu/menu-otros.ts con la función asíncrona mostrarMenuOtros, que recibe como parámetro el objeto w (Wrapper)
+
+44. Crear directorio modulos y dentro crear el archivo modulo-email.ts. Crear la clase ModuloEmail, con un costructor el objeto conf o w e implementar el método enviarCorreo, que recibe tres parámetros: la dirección correo destino, el asunto, el texto el correo. El método devuelve un booleano (true si el correo se envió correctamente y false en caso contrario).
+
+45. Crear un objeto de la clase ModuloEmail en el archivo main.ts y asociarlo al objeto w (tipar la interfaz Wrapper el nuevo objeto)
+
+46. La opción de Enviar Correo debe solicitar al usuario por pantalla el correo destino, el asunto y el contenido del correo. Realizar alguna validación e invocar al método enviarCorreo de la clase ModuloEmail.
+---
+
+47. Agregar una nueva propiedad al archivo de configuración conf.json
+  autenticacionHabilitado (boolean)
+
+Tipar la interfaz Configuración con la nueva propiedad
+
+48. Crear el archivo modulo-autenticacion.ts con la clase ModuloAutenticacion. El constructor va recibir el objeto w. Implementar el método loginGestor y logoutGestor. El método loginGestor recibe como parámetro el usuario y la contraseña y retorna una promesa que resuelve con booleano (true si la autenticación es correcta y false en caso contrario). Los atributos de la clase son: el usuario gestor autenticado (si no está autenticado, su valor será undefined),  token del gestor (undefined si no está autenticado) que será generado mediante la librería jsonwebtoken. El método logout no recibe ningún parámetro, no devuelve y asigna undefined a los atributos del usuario gestor y al token del gestor. 
+
+49. El objeto moduloAutenticacion (de la clase ModuloAutenticación) lo añadimos al objeto w dentro del archivo main.ts
+
+48. La opción de Login debe ofrecer la posibilidad de hacer el login con el gestor o con el cliente:
+
+MENÚ LOGIN
+---
+1. Login gestor
+2. Login cliente
+3. Atrás
+
+Crear los archivos menu/menu-login.ts y opciones/banco-login.ts
+
+49. Mostrar en el menú principal, un mensaje notificando si el gestor está autenticado. Si lo está, mostrar el nombre de usuario del gestor autenticado. Añadir los siguientes métodos al módulo de autenticación
+  estaGestorAutenticado(): boolean
+  obtenerTokenGestor(): string
+  obtenerUsuarioGestor(): string
+
+50. Añadir una nueva opción en el menú (Logout) para desautenticarnos
+
+51. En el menú de gestores añadimos una condición para evaluar si el gestor está autenticado. Si no lo está, mostrar un mensaje de error y volver al menú principal. Si lo está, mostrar el menú de gestores. Hay que tener en cuenta que la autenticación estará deshabilitada cuando la propiedad autenticacionHabilitado del archivo de configuración está a false
+
+51. En la opción de mostrarGestores, solicitamos al usuario si quiere mostrar todos los gestores o que los muestre paginados (archivo menu-gestores.ts). Si se muestra con paginación, hay que solicitar al usuario el número de página y el número de gestores a mostrar
+
+52. Implementar el método obtenerGestoresConPaginacion en la clase BancoDatabase. Recibe como parámetro numPagina y numElementos y devuelve una promesa que resuelve con un array de gestores
+
+53. Implementar la opción de "Mostrar gestor por identificador". Añadir el método mostrarGestorPorId dentro de la clase MenuGestores, pasando como parámetro el objeto w. 
+
+54. Implementar el método obtenerGestorPorId en la clase BancoDatabase. Recibe como paráemtro el identificador (number) y devuelve una promesa que resuelve con un gestor
+
+55. Invocar al método mostrarGestor del archivo mostrar.ts. Será necesario añadir export al método mostrarGestor para poder ser utilizado desde el archivo banco-gestores.ts
+
+56. Implementar la opción de "Modificar gestor". Añadir el método actualizarGestorPorUsuario dentro de la clase MenuGestores, pasando como parámetro el objeto w
+
+57. Implementar el método actualizarGestor. Recibe como parámetro un gestor y devuelve una promesa que resuelve como void
+
+
+
+
+  
