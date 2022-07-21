@@ -1,5 +1,5 @@
 import { Gestor } from './modelos/gestor';
-function mostrarGestor(gestor) {
+export function mostrarGestor(gestor) {
   console.log(`id: ${gestor.id}`);
   console.log(`usuario: ${gestor.usuario}`);
   // console.log(`password: ${gestor.password}`);

@@ -1,5 +1,6 @@
 import { Wrapper } from "../modelos/wrapper";
 import validator from 'validator';
+import { descargarPeliculas } from "../utilidades/the-movies";
 
 export async function mostrarMenuOtros(w: Wrapper) {
 
@@ -10,7 +11,8 @@ export async function mostrarMenuOtros(w: Wrapper) {
     console.log("MENÚ OTROS");
     console.log("-------------");
     console.log("1. Enviar correo");
-    console.log("2. Atrás");
+    console.log("2. Descargar películas y guardar");
+    console.log("0. Atrás");
 
     opcion = await w.rlp.questionAsync("¿Qué opción deseas?\n");
 
@@ -41,5 +43,10 @@ export async function mostrarMenuOtros(w: Wrapper) {
       await w.rlp.questionAsync("");
     }
 
-  } while (opcion !== "2");
+    else if(opcion === "2"){
+     await descargarPeliculas(w);
+      await w.rlp.questionAsync('');
+    }
+
+  } while (opcion !== "0");
 }

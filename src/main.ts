@@ -55,7 +55,8 @@ async function main() {
   w.moduloExpress = new ModuloExpress(w);
   w.moduloAutenticacion = new ModuloAutenticacion(w);
 
-  // await mostrarMenuPrincipal(w);
+  
+  await mostrarMenuPrincipal(w);
 }
 
 main();

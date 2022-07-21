@@ -12,7 +12,9 @@
   "smtpUsuario": "pepitonode@gmail.com",
   "smtpPassword": "rhncigxanbrurjnf",
 
-  "autenticacionHabilitado": true,
+  "autenticacionHabilitado": false,
 
-  "expressPuerto": 8085
+  "expressPuerto": 8085,
+
+  "peliculasApiKey": "cbd9722c788f08fa3ff4a7b6efb85560"
 }

@@ -10,7 +10,7 @@ import { Wrapper } from '../modelos/wrapper';
 import { validarCorreo, validarPassword, validarUsuario } from '../validaciones/validacion-gestores';
 
 import { BancoDatabase } from '../almacenamiento/banco-database';
-import { mostrarGestores } from '../mostar';
+import { mostrarGestor, mostrarGestores } from '../mostar';
 
 export class BancoGestores {
 

@@ -219,7 +219,38 @@ Crear los archivos menu/menu-login.ts y opciones/banco-login.ts
 
 57. Implementar el método actualizarGestor. Recibe como parámetro un gestor y devuelve una promesa que resuelve como void
 
+58. Crear el archivo modulos/modulo-express.ts. Creamos una clase de nombre ModuloExpress
+ Atributo de la clase: app (express.Application)
+ constructor: inicializamos el atributo app. El constructor recibe como parámetro un objeto de la clase Configuracion con la configuración del programa (conf.json)
+ método inicializar: definir las rutas de la aplicación. Primero definimos una ruta sencilla /ok (GET) y que devuelva el texto ok
 
+59. Integrar un objeto de la clase ModuloExpress en el objeto w (archivo main.ts)
+
+
+60. Agregar en el archivo de configuración (conf.json) una propiedad expressPuerto. Añadir tipado a la interfaz Configuracion y establecer el valor de la propiedad en el método listen de express, dentro del archivo (modulo-express.ts)
+
+61. Crear el archivo modulos/modulo-autenticacion-web.ts con la clase ModuloAutenticacionWeb. El constructor recibe como parámetro el objeto w y la clase incluye también los siguientes 
+  métodos: loginGestor (recibe usuario y contraseña), logout (recibe usuario)
+  atributos: gestoresAutenticados (objeto que almacena los nombres de los gestores autenticados y sus tokens)
+
+62. Desde el manejador de ruta o callback de la ruta /login/gestor, invocar al método loginGestor del objeto moduloAutenticacionWeb (clase ModuloAutenticacionWeb)
+
+63. Crear el archivo modelos/respuesta.ts con la interfaz Respuesta para tipar la respuesta que se devuelve al cliente
+
+64. Crear las funciones generarRespuestaOK, generarRespuestaOKConDatos y generarRespuestaError para facilitar la generación de respuestas al cliente
+
+65. Crear la ruta /gestores en el archivo de rutas express (modulo-express.ts)
+
+66. Añadir un condicional en callback que maneja la ruta /gestores comprobando si el token se encuentra en la cabecera Authorization. Si no se encuentra, devolver un objeto JSON de tipo respuesta con el mensaje de error al valor "Privilegios insuficientes"
+
+
+67. Crear el método autorizacionGestor en la clase ModuloAutenticacionWeb (archivo modulo-autenticacion-web.ts). Recibe el objeto req de Express y devuelve un booleano (true si el token es correcto y false en caso contrario).
+
+68. Crear una ruta en express para manejar peticiones desconocidas. La respuesta tiene en este caso tiene que ser un objeto JSON con ok: false, msg: 'Ruta no encontrada' y data: {}
+
+69. Crear una ruta en express para manejar errores. Es necesario instalar la librería express-async-errors para manejar errores que se produzcan en callbacks asíncronos (se corregirá en las versiones de Express >5.0)
+
+70. Crear ruta para del autenticación del cliente /login/cliente/
 
 
   
