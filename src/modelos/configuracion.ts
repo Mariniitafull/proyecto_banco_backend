@@ -16,5 +16,11 @@ export interface Configuracion {
 
   expressPuerto: number,
 
-  peliculasApiKey: string
+  peliculasApiKey: string,
+
+  telegramToken: string,
+  telegramId: string,
+
+  juegoPuertoExpress: number,
+  juegoPuertoWebsocket: number
 }

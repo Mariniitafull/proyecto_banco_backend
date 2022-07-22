@@ -16,5 +16,12 @@
 
   "expressPuerto": 8085,
 
-  "peliculasApiKey": "cbd9722c788f08fa3ff4a7b6efb85560"
+  "peliculasApiKey": "cbd9722c788f08fa3ff4a7b6efb85560",
+
+  "telegramToken": "5488442109:AAHkcaol6vZbrTyi5zW_7aaiwdc7iCrwTyM",
+  "telegramId": "2142492013",
+  
+
+  "juegoPuertoExpress": 9000,
+  "juegoPuertoWebsocket": 9001
 }

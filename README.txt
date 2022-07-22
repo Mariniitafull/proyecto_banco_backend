@@ -252,5 +252,86 @@ Crear los archivos menu/menu-login.ts y opciones/banco-login.ts
 
 70. Crear ruta para del autenticación del cliente /login/cliente/
 
+71. Crear una propiedad en el archivo de configuración (conf.json) para almacenar el token. El nombre de la propiedad será peliculasApiKey. Agregar a la propiedad a la interfaz Configuracion (modelos/configuracion.ts)
 
+72. Agregar la opción 2. Descargar películas y guardar en el menú Otros (menu/menu-otros.ts).
+
+
+73. Crear una carpeta utilidades y dentro el archivo the-movies.ts. El archivo tendrá una función asíncrona que recibe como parámetro el objeto w y no retorna nada
+
+-----
+npm install axios
+-> conf.json
+-> modelos/configuracion.ts
+-> crear el directorio utilidades
+-> utilidades/the-movies.ts
+-> menu/menu-otros.ts
+---
+
+74. Crear el archivo almacenamiento/the-movies-database.ts y dentro la clase TheMoviesDatabase. Tomar como referencia el archivo banco-database.ts
+
+75. Tipar el objeto pelicula con una interfaz (modelos/pelicula.ts)
+
+76. Crear el método eliminarPeliculas dentro de la clase TheMoviesDatabase
+
+77. Crear los método insertarPelicula e insertarPeliculas. El primero recibe un objeto de tipo Pelicula y el segundo método recibe un array de objetos de tipo Pelicula.
+
+78. Crear un objeto de la clase TheMoviesDatabase dentro de la función descargarPeliculas en el archivo the-movies.ts y almacenar la película descargada
+
+79. Crear el archivo modulos/modulo-websocket.ts con la clase ModuloWebsocket. Levantar el servidor Websocket y escuchar peticiones en el puerto 8086
+
+80. Añadir el objeto de la clase ModuloWebSocket al objeto Wrapper desde el main.ts
   
+81. Agregar la propiedad telegramToken y la propiedad telegramId al archivo de configuración conf.json. Tipar correctamente la interfaz Configuracion (archivo modelos/configuracion.ts)
+
+82. Descargar la librería node-telegram-bot-api y crear el archivo modulos/modulo-telegram.ts. Crear el objeto moduloTelegram en el archivo main.ts y tipar correctamente la interfaz Wrapper
+
+83. Cuando se inserte un gestor, enviar un mensaje de telegram (banco-gestores.ts)
+
+84. Crear el método obtenerPeliculaAleatoria en la clase TheMoviesDatabase
+
+85. Agregar la opción 3. Obtener película aleatoria en el menú de otros 
+
+86. Crear el método obtenerPeliculasPorPaginacion en la clase TheMoviesDatabase
+
+87. Agregar la opción 4. Obtener películas por paginación
+
+88. Crear el método obtenerPaginasPorNumeroElementos en la clase TheMoviesDatabase
+
+89. Agregar la opción 5. Obtener páginas por número de elementos
+
+90. Agregar las siguientes propiedades al archivo conf.json: juegoPuertoExpress, juegoPuertoWebsocket. Tipar también el archivo configuracion.ts (interface Configuracion)
+
+91. Crear los siguientes modulos: moduloJuegoAnfitrion y moduloJuegoJugador. Agregar a la interfaz Wrapper en el archivo main.ts
+
+----
+Puertos abiertos:
+27017: MongoDB
+8085: Express con el servicio web del Banco, incluyendo la aplicación de Angular (public)
+8086: Websocket para el chat del banco
+9000: Express para el juego
+9001: Websocket para el juego
+----
+
+92. Crear las siguientes en el menú Otros:
+6. Juego - Anfitrion y 7. Juego - Jugador 
+
+---
+El anfitrión realiza las siguientes acciones:
+
+- Establece un nombre de la sala del juego
+- Espera la entrada de jugadores.
+- Abre un puerto para manifestar su disponibilidad 
+- Guarda las puntuaciones
+---
+
+93. Arrancar un servidor Express escuchando en el puerto 9000 y definid la ruta /anfitrion que tiene que retornar el nombre de la sala
+
+94. En el modulo ModuloJuegoJugador buscar anfitriones disponibles. Solicitar al usuario a qué sala conectarse
+
+95. En el módulo ModuloJuegoAnfitrion, crear la ruta /entrar y que devuelva ok
+
+
+
+
+

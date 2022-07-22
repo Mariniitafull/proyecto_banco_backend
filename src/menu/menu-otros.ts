@@ -12,6 +12,11 @@ export async function mostrarMenuOtros(w: Wrapper) {
     console.log("-------------");
     console.log("1. Enviar correo");
     console.log("2. Descargar películas y guardar");
+    console.log("3. Obtener película aleatoria");
+    console.log("4. Obtener películas por paginación");
+    console.log("5. Obtener páginas por número de elementos");
+    console.log("6. Juego - Anfitrión");    
+    console.log("7. Juego - Jugador");    
     console.log("0. Atrás");
 
     opcion = await w.rlp.questionAsync("¿Qué opción deseas?\n");
@@ -43,9 +48,77 @@ export async function mostrarMenuOtros(w: Wrapper) {
       await w.rlp.questionAsync("");
     }
 
-    else if(opcion === "2"){
-     await descargarPeliculas(w);
+    // Opción 2 --> Descargar películas y guardar
+    else if(opcion === "2") {
+      // await descargarPeliculas(w);
       await w.rlp.questionAsync('');
+    }
+
+    // Opción 3 --> Obtener película aleatoria
+    else if(opcion === "3") {
+      console.clear();
+      const pelicula = await w.themoviesDatabase.obtenerPeliculaAleatoria();
+      console.log(pelicula.title);      
+      await w.rlp.questionAsync('');
+    }
+
+    // Opción 4 -> Obtener películas por paginación
+    else if(opcion === "4") {
+      console.clear();
+
+      const numElementos = +(await w.rlp.questionAsync('Número de elementos: '));
+      if(isNaN(numElementos)) {
+        console.log('Número de elementos incorrecto');        
+      }
+
+      const numPagina = +(await w.rlp.questionAsync('Número de página: '));
+      if(isNaN(numPagina)) {
+        console.log('Número de página incorrecto');
+      }
+
+      const peliculas = await w.themoviesDatabase.obtenerPeliculasPorPaginacion(
+        numPagina, 
+        numElementos
+      );
+
+      peliculas.forEach((pelicula, i) => {
+        console.log(`${i+1}. ${pelicula.title}`);        
+      });
+
+      await w.rlp.questionAsync('')
+    }
+
+    // Opción 5 -> Obtener páginas por número de elementos
+    else if(opcion === "5") {
+
+      console.clear();
+
+      const numElementos = +(await w.rlp.questionAsync('Número de elementos: '));
+      if(isNaN(numElementos)) {
+        console.log('Número de elementos incorrecto');        
+      }
+
+      const numeroPaginas = await w.themoviesDatabase.obtenerPaginasPorNumeroDeElementos(
+        numElementos
+      );
+      console.log(`Número de páginas: ${numeroPaginas}`);      
+
+      await w.rlp.questionAsync('');
+    }
+
+    // Opción 6 --> Juego - Anfitrión
+    else if(opcion ==="6") {
+      console.clear();
+      await w.moduloJuegoAnfitrion.iniciar();
+      await w.rlp.questionAsync('');
+    }
+
+    // Opción 7 --> Juego - Jugador
+    else if(opcion == "7") {
+      console.clear();
+      await w.moduloJuegoJugador.iniciar();
+      await w.rlp.questionAsync('');
+      await w.moduloJuegoJugador.detener();
     }
 
   } while (opcion !== "0");

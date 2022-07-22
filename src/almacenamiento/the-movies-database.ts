@@ -3,6 +3,9 @@ import { Configuracion } from '../modelos/configuracion';
 import { Pelicula } from '../modelos/pelicula';
 
 export class TheMoviesDatabase {
+  obtenerPaginasPorNumeroDeElementos(numElementos: number) {
+    throw new Error("Method not implemented.");
+  }
 
   private conf: Configuracion;
   private cPeliculas: Collection<Pelicula>;
@@ -32,5 +35,44 @@ export class TheMoviesDatabase {
 
   async insertarPelicula(pelicula: Pelicula) {
     await this.cPeliculas.insertOne(pelicula);
+  }
+
+  async insertarPeliculas(peliculas: Pelicula[]) {
+    await this.cPeliculas.insertMany(peliculas);
+  }
+
+  async obtenerPeliculaAleatoria(): Promise<Pelicula> {
+
+    // obtengo el número de películas en la colección (32951)
+    const numPeliculas = await this.cPeliculas.countDocuments({});
+
+    const posicionPelicula = +(Math.random()*numPeliculas)
+    .toFixed(0);
+
+    const peliculas = await this.cPeliculas
+    .find()
+    .skip(posicionPelicula)
+    .limit(1)  // solamente obtenemos una película
+    .toArray();
+
+    return peliculas[0];
+  }
+
+  async obtenerPeliculasPorPaginacion(
+    numPagina: number,
+    numElementos: number
+  ): Promise<Pelicula[]> {
+
+    if (numElementos > 100) {
+      numElementos = 100;
+    }
+
+    const skip = (numPagina - 1) * numElementos;
+
+    return await this.cPeliculas
+    .find()
+    .skip(skip)
+    .limit(numElementos)
+    .toArray();
   }
 }

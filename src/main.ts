@@ -1,3 +1,5 @@
+import { ModuloJuegoJugador } from './modulos/modulo-juego-jugador';
+import { ModuloJuegoAnfitrion } from './modulos/modulo-juego-anfitrion';
 import fs from 'fs';
 import path from 'path';
 import { Configuracion } from './modelos/configuracion';
@@ -11,6 +13,10 @@ import { ModuloEmail } from './modulos/modulo-email';
 import { ModuloAutenticacion } from './modulos/modulo-autenticacion';
 import { ModuloExpress } from './modulos/modulo-express';
 import { ModuloAutenticacionWeb } from './modulos/modulo-autenticacion-web';
+import { ModuloWebsocket } from './modulos/modulo-websocket';
+import { ModuloTelegram } from './modulos/modulo-telegram';
+import { TheMoviesDatabase } from './almacenamiento/the-movies-database';
+
 
 async function main() {
   // __dirname = C:\workspace_backend\proyecto_banco_backend\dist
@@ -40,22 +46,31 @@ async function main() {
     conf,
     bancoArchivos: new BancoArchivos(conf),
     bancoDatabase,
+    themoviesDatabase: new TheMoviesDatabase(conf),
     moduloEmail: new ModuloEmail(conf),
     moduloAutenticacion: null,
     moduloAutenticacionWeb: null,
     moduloExpress: null,
+    moduloWebsocket: null,
+    moduloTelegram: null,
+    moduloJuegoAnfitrion: null,
+    moduloJuegoJugador: null,
     rlp: readline.createInterface({
       input: process.stdin,
       output: process.stdout,
       terminal: false,
     })
-  } as Wrapper
+  };
   
   w.moduloAutenticacionWeb = new ModuloAutenticacionWeb(w);
-  w.moduloExpress = new ModuloExpress(w);
+  // w.moduloExpress = new ModuloExpress(w);
   w.moduloAutenticacion = new ModuloAutenticacion(w);
-
+  // w.moduloWebsocket = new ModuloWebsocket(w);
+  w.moduloTelegram = new ModuloTelegram(w);
+  w.moduloJuegoAnfitrion = new ModuloJuegoAnfitrion(w);
+  w.moduloJuegoJugador = new ModuloJuegoJugador(w);
   
+  await w.themoviesDatabase.conectar();
   await mostrarMenuPrincipal(w);
 }
 
