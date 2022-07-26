@@ -3,9 +3,6 @@ import { Configuracion } from '../modelos/configuracion';
 import { Pelicula } from '../modelos/pelicula';
 
 export class TheMoviesDatabase {
-  obtenerPaginasPorNumeroDeElementos(numElementos: number) {
-    throw new Error("Method not implemented.");
-  }
 
   private conf: Configuracion;
   private cPeliculas: Collection<Pelicula>;
@@ -74,5 +71,21 @@ export class TheMoviesDatabase {
     .skip(skip)
     .limit(numElementos)
     .toArray();
+  }
+
+  // db.peliculas.createIndex({title: 1})
+  async obtenerPeliculasPorTermino(termino: string): Promise<Pelicula[]> {
+    return await this.cPeliculas
+    .find({
+      title: {
+        "$regex": termino
+      }
+    })
+    .toArray();
+  }
+
+  async obtenerPaginasPorNumeroDeElementos(numElementos: number): Promise<number>{
+    const numPeliculas = await this.cPeliculas.countDocuments({});
+    return Math.ceil(numPeliculas / numElementos);
   }
 }
